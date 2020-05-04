@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_XVideoUI.h"
 
+
 class XVideoUI : public QMainWindow
 {
 	Q_OBJECT

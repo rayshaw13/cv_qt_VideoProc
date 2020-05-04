@@ -8,7 +8,13 @@ XVideoUI::XVideoUI(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	//setWindowFlags(Qt::FramelessWindowHint);// 隐藏标题栏
+	setWindowFlags(Qt::FramelessWindowHint);// 隐藏标题栏
+	qRegisterMetaType<cv::Mat>("cv::Mat");
+	QObject::connect(XVideoThread::Get(),
+		SIGNAL(ViewImage1(cv::Mat)),
+		ui.src1video,
+		SLOT(SetImage(cv::Mat))
+		);
 }
 
 void XVideoUI::Open() {
@@ -22,9 +28,9 @@ void XVideoUI::Open() {
 	//XVideoThread打开视频
 	//XVideoThread xv;//因为构造函数protected类型，不能访问。
 	if (!XVideoThread::Get()->Open(file)) {
-		QMessageBox::information(this, "Error:", name+"open failed");
+		QMessageBox::information(this, "Message:", name+" open failed");
 	}
 	else
-		QMessageBox::information(this, "Error:", name + "open succeed");
+		QMessageBox::information(this, "Message:", name + " open succeed");
 	//QMessageBox::information(this, "", name);
 }

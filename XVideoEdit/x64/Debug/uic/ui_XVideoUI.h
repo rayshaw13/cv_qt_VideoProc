@@ -51,7 +51,7 @@ public:
         closeButton->setFlat(true);
         src1video = new XVideoWidget(centralWidget);
         src1video->setObjectName(QString::fromUtf8("src1video"));
-        src1video->setGeometry(QRect(10, 10, 351, 261));
+        src1video->setGeometry(QRect(10, 10, 360, 260));
         openButton = new QPushButton(centralWidget);
         openButton->setObjectName(QString::fromUtf8("openButton"));
         openButton->setGeometry(QRect(370, 290, 75, 23));
