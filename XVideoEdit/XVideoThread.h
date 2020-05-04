@@ -21,6 +21,8 @@ public:
 	}
 	//打开1号视频文件
 	bool Open(const std::string file);
+	// 返回当前播放位置
+	double GetPos();
 	
 	~XVideoThread();
 

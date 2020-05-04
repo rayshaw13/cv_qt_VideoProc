@@ -15,6 +15,12 @@ XVideoUI::XVideoUI(QWidget *parent)
 		ui.src1video,
 		SLOT(SetImage(cv::Mat))
 		);
+	startTimer(40);
+}
+
+void XVideoUI::timerEvent(QTimerEvent *e) {
+	double pos = XVideoThread::Get()->GetPos();
+	ui.playSlider->setValue(pos * 1000);
 }
 
 void XVideoUI::Open() {

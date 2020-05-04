@@ -10,6 +10,7 @@ class XVideoUI : public QMainWindow
 
 public:
 	XVideoUI(QWidget *parent = Q_NULLPTR);
+	void timerEvent(QTimerEvent *e);
 
 private:
 	Ui::XVideoUIClass ui;

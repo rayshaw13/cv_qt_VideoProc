@@ -56,3 +56,18 @@ void XVideoThread::run() {
 		mutex.unlock();
 	}
 }
+
+double XVideoThread::GetPos() {
+	double pos = 0;
+	mutex.lock();
+	if (!cap1.isOpened()) {
+		mutex.unlock();
+		return pos;
+	}
+	double count=cap1.get(CAP_PROP_FRAME_COUNT);
+	double cur = cap1.get(CAP_PROP_POS_FRAMES);
+	if(count>0.001)
+		pos = cur / count;
+	mutex.unlock();
+	return pos;
+}

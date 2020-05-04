@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QWidget>
 #include "xvideowidget.h"
 
@@ -25,6 +26,7 @@ public:
     QPushButton *closeButton;
     XVideoWidget *src1video;
     QPushButton *openButton;
+    QSlider *playSlider;
 
     void setupUi(QMainWindow *XVideoUIClass)
     {
@@ -54,7 +56,12 @@ public:
         src1video->setGeometry(QRect(10, 10, 360, 260));
         openButton = new QPushButton(centralWidget);
         openButton->setObjectName(QString::fromUtf8("openButton"));
-        openButton->setGeometry(QRect(370, 290, 75, 23));
+        openButton->setGeometry(QRect(380, 280, 75, 23));
+        playSlider = new QSlider(centralWidget);
+        playSlider->setObjectName(QString::fromUtf8("playSlider"));
+        playSlider->setGeometry(QRect(10, 280, 361, 16));
+        playSlider->setMaximum(999);
+        playSlider->setOrientation(Qt::Horizontal);
         XVideoUIClass->setCentralWidget(centralWidget);
 
         retranslateUi(XVideoUIClass);
