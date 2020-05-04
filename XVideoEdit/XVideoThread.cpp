@@ -9,7 +9,11 @@ bool XVideoThread::Open(const std::string file) {
 	bool re = cap1.open(file);
 	mutex.unlock();
 	std::cout << re << "\n";
-	return re;
+	if(!re)
+		return re;
+	fps = cap1.get(CAP_PROP_FPS);// 获取帧率
+	if (fps <= 0) fps = 25;// 如果没有拿到帧率值，就假定为25
+	return true;
 }
 XVideoThread::XVideoThread()
 {
@@ -45,7 +49,10 @@ void XVideoThread::run() {
 		}
 		// 显示图像 在这里不使用imshow了，而是显示在QT中。将mat1传出去，由videowidget绘制
 		ViewImage1(mat1);
-		msleep(40);
+		//msleep(40);
+		int s = 0;
+		s = 1000 / fps;
+		msleep(s);
 		mutex.unlock();
 	}
 }

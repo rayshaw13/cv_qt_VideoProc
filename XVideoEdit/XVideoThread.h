@@ -14,6 +14,7 @@ class XVideoThread:public QThread
 	Q_OBJECT
 
 public:
+	int fps;
 	static XVideoThread* Get() {
 		static XVideoThread vt;
 		return &vt;
