@@ -71,3 +71,20 @@ double XVideoThread::GetPos() {
 	mutex.unlock();
 	return pos;
 }
+
+bool XVideoThread::Seek(int frame) {
+	mutex.lock();
+	if (!cap1.isOpened()) {
+		mutex.unlock();
+		return false;
+	}
+	int re = cap1.set(CAP_PROP_POS_FRAMES, frame);
+	mutex.unlock();
+	return re;
+}
+
+bool XVideoThread::Seek(double pos) {
+	double count = cap1.get(CAP_PROP_FRAME_COUNT);
+	int frame = pos*count;
+	return Seek(frame);
+}

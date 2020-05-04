@@ -67,6 +67,9 @@ public:
         retranslateUi(XVideoUIClass);
         QObject::connect(closeButton, SIGNAL(clicked()), XVideoUIClass, SLOT(close()));
         QObject::connect(openButton, SIGNAL(clicked()), XVideoUIClass, SLOT(Open()));
+        QObject::connect(playSlider, SIGNAL(sliderPressed()), XVideoUIClass, SLOT(SliderPress()));
+        QObject::connect(playSlider, SIGNAL(sliderReleased()), XVideoUIClass, SLOT(SliderRelease()));
+        QObject::connect(playSlider, SIGNAL(sliderMoved(int)), XVideoUIClass, SLOT(SetPos(int)));
 
         QMetaObject::connectSlotsByName(XVideoUIClass);
     } // setupUi

@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_XVideoUI.h"
 
+static bool pressSlider = false;
 
 class XVideoUI : public QMainWindow
 {
@@ -16,4 +17,7 @@ private:
 	Ui::XVideoUIClass ui;
 public slots:
 	void Open();
+	void SliderPress();
+	void SliderRelease();
+	void SetPos(int);//»¬¶¯ÌõÍÏ¶¯
 };

@@ -19,6 +19,8 @@ XVideoUI::XVideoUI(QWidget *parent)
 }
 
 void XVideoUI::timerEvent(QTimerEvent *e) {
+	if (pressSlider)
+		return;
 	double pos = XVideoThread::Get()->GetPos();
 	ui.playSlider->setValue(pos * 1000);
 }
@@ -39,4 +41,14 @@ void XVideoUI::Open() {
 	else
 		QMessageBox::information(this, "Message:", name + " open succeed");
 	//QMessageBox::information(this, "", name);
+}
+
+void XVideoUI::SliderPress() {
+	pressSlider = true;
+}
+void XVideoUI::SliderRelease() {
+	pressSlider = false;
+}
+void XVideoUI::SetPos(int pos) {
+	XVideoThread::Get()->Seek((double)pos / 1000.);
 }

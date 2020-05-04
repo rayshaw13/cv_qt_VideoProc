@@ -23,7 +23,11 @@ public:
 	bool Open(const std::string file);
 	// 返回当前播放位置
 	double GetPos();
-	
+	// 跳转视频
+	///@para frame int 帧位置
+	bool Seek(int frame);
+	bool Seek(double pos);//重载Seek
+
 	~XVideoThread();
 
 	//线程入口函数
