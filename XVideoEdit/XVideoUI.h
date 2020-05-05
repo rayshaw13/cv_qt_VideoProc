@@ -2,6 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_XVideoUI.h"
+#include"XFilter.h"
 
 static bool pressSlider = false;
 
@@ -20,4 +21,8 @@ public slots:
 	void SliderPress();
 	void SliderRelease();
 	void SetPos(int);//滑动条拖动
+
+	// 设置过滤器
+	void Set();
+
 };

@@ -10,11 +10,19 @@ XVideoUI::XVideoUI(QWidget *parent)
 	ui.setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);// 隐藏标题栏
 	qRegisterMetaType<cv::Mat>("cv::Mat");
+	//原视频显示信号
 	QObject::connect(XVideoThread::Get(),
 		SIGNAL(ViewImage1(cv::Mat)),
 		ui.src1video,
 		SLOT(SetImage(cv::Mat))
 		);
+
+	//输出视频显示信号
+	QObject::connect(XVideoThread::Get(),
+		SIGNAL(ViewDes(cv::Mat)),
+		ui.des,
+		SLOT(SetImage(cv::Mat))
+	);
 	startTimer(40);
 }
 
@@ -51,4 +59,14 @@ void XVideoUI::SliderRelease() {
 }
 void XVideoUI::SetPos(int pos) {
 	XVideoThread::Get()->Seek((double)pos / 1000.);
+}
+// 设置过滤器
+void XVideoUI::Set() {
+	XFilter::Get()->Clear();
+	//对比度和亮度
+	if (ui.bright->value() > 0 || ui.contrast->value() > 1) {
+		XFilter::Get()->Add(XTask{ XTASK_GAIN,
+		{(double)ui.bright->value(),ui.contrast->value()}
+		});
+	}
 }

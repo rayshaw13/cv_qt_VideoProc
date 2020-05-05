@@ -25,6 +25,7 @@ XVideoThread::~XVideoThread()
 	mutex.lock();
 	isexit = true;
 	mutex.unlock();
+	wait();
 }
 
 void XVideoThread::run() {
@@ -47,8 +48,14 @@ void XVideoThread::run() {
 			msleep(5);
 			continue;
 		}
-		// 显示图像 在这里不使用imshow了，而是显示在QT中。将mat1传出去，由videowidget绘制
+		// 显示图像1 在这里不使用imshow了，而是显示在QT中。将mat1传出去，由videowidget绘制
 		ViewImage1(mat1);
+
+		//通过过滤器处理视频
+		Mat des=XFilter::Get()->Filter(mat1, Mat());
+
+		//显示输出视频图像
+		ViewDes(des);
 		//msleep(40);
 		int s = 0;
 		s = 1000 / fps;

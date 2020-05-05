@@ -7,6 +7,9 @@
 #include<opencv2\imgproc.hpp>
 #include<opencv2\imgcodecs.hpp>
 #include<opencv2\highgui.hpp>
+
+#include"XFilter.h"
+
 using namespace cv;
 class XVideoThread:public QThread
 {
@@ -33,7 +36,11 @@ public:
 	//线程入口函数
 	void run();//重载QThread类的run函数
 signals:
+	//显示原视频1图像
 	void ViewImage1(cv::Mat mat);
+
+	//显示原视频2图像
+	void ViewDes(cv::Mat mat);
 protected:
 	QMutex mutex;
 	XVideoThread();//将其声明为protected类型，只可以通过Get()访问线程，保证对象唯一性。

@@ -11,9 +11,12 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QDoubleSpinBox>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QWidget>
 #include "xvideowidget.h"
 
@@ -27,6 +30,12 @@ public:
     XVideoWidget *src1video;
     QPushButton *openButton;
     QSlider *playSlider;
+    QLabel *label;
+    QLabel *label_2;
+    QSpinBox *bright;
+    QDoubleSpinBox *contrast;
+    QPushButton *setButton;
+    XVideoWidget *des;
 
     void setupUi(QMainWindow *XVideoUIClass)
     {
@@ -62,6 +71,26 @@ public:
         playSlider->setGeometry(QRect(10, 280, 361, 16));
         playSlider->setMaximum(999);
         playSlider->setOrientation(Qt::Horizontal);
+        label = new QLabel(centralWidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(380, 320, 61, 16));
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setGeometry(QRect(380, 340, 61, 16));
+        bright = new QSpinBox(centralWidget);
+        bright->setObjectName(QString::fromUtf8("bright"));
+        bright->setGeometry(QRect(450, 310, 42, 22));
+        contrast = new QDoubleSpinBox(centralWidget);
+        contrast->setObjectName(QString::fromUtf8("contrast"));
+        contrast->setGeometry(QRect(450, 340, 62, 22));
+        contrast->setMinimum(1.000000000000000);
+        contrast->setMaximum(3.000000000000000);
+        setButton = new QPushButton(centralWidget);
+        setButton->setObjectName(QString::fromUtf8("setButton"));
+        setButton->setGeometry(QRect(640, 320, 56, 17));
+        des = new XVideoWidget(centralWidget);
+        des->setObjectName(QString::fromUtf8("des"));
+        des->setGeometry(QRect(380, 10, 360, 260));
         XVideoUIClass->setCentralWidget(centralWidget);
 
         retranslateUi(XVideoUIClass);
@@ -70,6 +99,7 @@ public:
         QObject::connect(playSlider, SIGNAL(sliderPressed()), XVideoUIClass, SLOT(SliderPress()));
         QObject::connect(playSlider, SIGNAL(sliderReleased()), XVideoUIClass, SLOT(SliderRelease()));
         QObject::connect(playSlider, SIGNAL(sliderMoved(int)), XVideoUIClass, SLOT(SetPos(int)));
+        QObject::connect(setButton, SIGNAL(clicked()), XVideoUIClass, SLOT(Set()));
 
         QMetaObject::connectSlotsByName(XVideoUIClass);
     } // setupUi
@@ -79,6 +109,9 @@ public:
         XVideoUIClass->setWindowTitle(QCoreApplication::translate("XVideoUIClass", "XVideoUI", nullptr));
         closeButton->setText(QCoreApplication::translate("XVideoUIClass", "X", nullptr));
         openButton->setText(QCoreApplication::translate("XVideoUIClass", "\346\211\223\345\274\200", nullptr));
+        label->setText(QCoreApplication::translate("XVideoUIClass", "\344\272\256\345\272\2460-100", nullptr));
+        label_2->setText(QCoreApplication::translate("XVideoUIClass", "\345\257\271\346\257\224\345\272\2461.0-3.0", nullptr));
+        setButton->setText(QCoreApplication::translate("XVideoUIClass", "\350\256\276\347\275\256", nullptr));
     } // retranslateUi
 
 };
