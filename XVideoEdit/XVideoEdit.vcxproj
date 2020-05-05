@@ -80,6 +80,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="XFilter.cpp" />
     <ClCompile Include="XImagePro.cpp" />
     <ClCompile Include="XVideoThread.cpp" />
     <ClCompile Include="XVideoUI.cpp" />
@@ -99,6 +100,7 @@
     <QtMoc Include="XVideoWidget.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="XFilter.h" />
     <ClInclude Include="XImagePro.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
