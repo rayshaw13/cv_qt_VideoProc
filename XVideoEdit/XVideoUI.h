@@ -25,4 +25,9 @@ public slots:
 	// 设置过滤器
 	void Set();
 
+	// 导出视频
+	void Export();
+	// 导出结束
+	void ExportEnd();
+
 };

@@ -4,6 +4,8 @@
 #include<QMessageBox>
 #include"XVideoThread.h"
 
+static bool isExport = false;// 是否是导出状态的标志位
+
 XVideoUI::XVideoUI(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -23,6 +25,14 @@ XVideoUI::XVideoUI(QWidget *parent)
 		ui.des,
 		SLOT(SetImage(cv::Mat))
 	);
+
+	// 导出视频结束
+	QObject::connect(XVideoThread::Get(),
+		SIGNAL(SaveEnd()),
+		this,
+		SLOT(ExportEnd())
+	);
+
 	startTimer(40);
 }
 
@@ -69,4 +79,29 @@ void XVideoUI::Set() {
 		{(double)ui.bright->value(),ui.contrast->value()}
 		});
 	}
+}
+// 导出视频
+void XVideoUI::Export() {
+
+	if (isExport) {// 如果已经是导出状态，那么此时按键上的文字是停止导出,同时本次点击的意图是停止导出调用stopSave
+		XVideoThread::Get()->StopSave();
+		isExport = false;
+		ui.exportButton->setText("Start export");
+		return;
+	}
+	// 开始导出
+	QString name = QFileDialog::getSaveFileName(this, "save", "out1.avi");// 默认导出文件名是out1.avi
+	if (name.isEmpty()) return;
+	std::string filename = name.toLocal8Bit().data();
+	if (XVideoThread::Get()->StartSave(filename)) {
+		isExport = true;
+		ui.exportButton->setText("Stop export");
+	}
+	
+}
+
+void XVideoUI::ExportEnd()
+{
+	isExport = false;
+	ui.exportButton->setText("start export");
 }
